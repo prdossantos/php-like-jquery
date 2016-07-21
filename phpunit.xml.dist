@@ -1,0 +1,16 @@
+<phpunit
+  colors="true"
+  verbose="true">
+  <testsuites>
+    <testsuite name="PHP Like Jquery">
+        <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+
+  <filter>
+    <whitelist>
+      <directory>src/PHPLikeJquery</directory>
+    </whitelist>
+  </filter>
+
+</phpunit>
