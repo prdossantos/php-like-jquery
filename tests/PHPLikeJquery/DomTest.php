@@ -4,9 +4,16 @@ use PHPLJ\Dom;
 
 class DomTest extends TestCase {
 
-	public function testLoad()
+	protected $dom;
+
+	public function setUp()
 	{
-		$dom = new Dom('<div id="ffff" class="asd">asdf</div>');
-		print_r($dom->find('#ffff')->attr('class'));
+		$this->dom = new Dom('<div id="ffff" class="asd">asdf</div>');
+		
+	}
+
+	public function testAttr()
+	{
+		$this->assertEquals('asd',$this->dom->find('#ffff')->attr('class'));
 	}
 }

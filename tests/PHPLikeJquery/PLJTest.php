@@ -4,8 +4,15 @@ use PHPLJ\PLJ;
 
 class PLJTest extends TestCase {
 
+	protected $html;
+
+	public function setUp()
+	{
+		$this->html = '<div id="ffff" class="asd123">asdf</div>';
+	}
+
 	public function testIn()
 	{
-		print_r(PLJ::in('<div id="ffff" class="asd">asdf</div>')->find('#ffff')->attr('class'));
+		$this->assertEquals('asd123', PLJ::in($this->html)->find('#ffff')->attr('class'));
 	}
 }

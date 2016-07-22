@@ -11,7 +11,7 @@
             "src"
         ],
         "psr-4": {
-            "PHPLJ\\": "src/PHPLikeJquery"
+            "PHPLJ\\": "src/PHPLikeJquery/"
         }
     },
     "require": {
