@@ -35,4 +35,17 @@ class PLJTest extends TestCase {
 	{
 		$this->assertEquals('another',PLJ::in($this->html)->find('#123')->hasClass('test')->html());	
 	}
+
+	public function testAppend()
+	{
+		$this->html = PLJ::in($this->html)->find('#123')->hasClass('test')->append('<em>asd</em>')->save();
+		$this->assertEquals('asd',PLJ::in($this->html)->find('em')->html());	
+	}
+
+	public function testPrepend()
+	{
+		$this->html = PLJ::in($this->html)->find('#123')->hasClass('test')->prepend('<em>asd</em>')->save();
+		$this->assertNotNull(PLJ::in($this->html)->find('#123')->html());	
+	}
+
 }

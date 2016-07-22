@@ -175,7 +175,7 @@ class Dom {
 	}
 
 	/**
-	 * Adiciona uma nova classe ao elemento
+	 * Verifica se a classe existe no elemento
 	 * @param string $class classe a ser adicionada
 	 * @return instance \Dom
 	 */
@@ -196,6 +196,47 @@ class Dom {
 	}
 
 	/**
+	 * Adiciona um conteúdo ao final do elemento 
+	 * @param  string $html conteúdo que será adicionado, aceita html e texto.
+	 * @return instance     \Dom
+	 */
+	public function append($html)
+	{
+		if(empty($html)) throw new \ErrorException("Argument 1 is required", 1);
+		
+		if( $this->items ) {
+			foreach ( $this->items as $element) {
+				$node = $this->dom->createTextNode($html);
+				$element->appendChild($node);
+			}
+			$this->output = $this->cleanOut($this->dom->saveHTML());
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Adiciona um conteúdo no inicio do elemento 
+	 * @param  string $html conteúdo que será adicionado, aceita html e texto.
+	 * @return instance     \Dom
+	 */
+	public function prepend($html)
+	{
+		if(empty($html)) throw new \ErrorException("Argument 1 is required", 1);
+		
+		if( $this->items ) {
+			foreach ( $this->items as $element) {
+				$node = $this->dom->createTextNode($html);
+				$child = $element->firstChild;
+				$element->insertBefore($node,$child);
+			}
+			$this->output = $this->cleanOut($this->dom->saveHTML());
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Imprime ou retorna o html tratado.
 	 * @param    boolean $print caso TRUE será impresso na tela
 	 * @return   string         apenas se a $print for FALSE
@@ -206,6 +247,16 @@ class Dom {
 			print $this->output;
 		else
 			return $this->output;
+	}
+
+	/**
+	 * Imprime ou retorna o html tratado.
+	 * @param    boolean $print caso TRUE será impresso na tela
+	 * @return   string         apenas se a $print for FALSE
+	 */
+	public function save()
+	{
+		return $this->output;
 	}
 
 	public function cleanOut($str)
