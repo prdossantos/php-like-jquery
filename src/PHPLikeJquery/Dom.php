@@ -140,6 +140,8 @@ class Dom {
 	 */
 	public function css($arg1,$arg2='')
 	{
+		if(empty($this->items)) throw new \ErrorException("Error Processing Request", 1);
+		
 		if( is_array($this->items) ) {
 			foreach ( $this->items as $element) {
 				if( is_array($arg1) && $arg1 ) {
@@ -152,6 +154,26 @@ class Dom {
 				} else if( is_string($arg1) && $arg1 && $arg2 ) {
 					$element->setAttribute('style',$arg1.':'.$arg2);
 				}
+			}
+			$this->output = $this->cleanOut($this->dom->saveHTML());
+		}
+		return $this;
+	}
+
+	/**
+	 * Adiciona uma nova classe ao elemento
+	 * @param string $class classe a ser adicionada
+	 * @return instance \Dom
+	 */
+	public function addClass($class)
+	{
+		if(empty($this->items)) throw new \ErrorException("Error Processing Request", 1);
+		if(empty($class)) throw new \ErrorException("Argument 1 is required", 1);
+		
+		if( is_array($this->items) ) {
+			foreach ( $this->items as $element) {
+				$oldClass = $element->getAttribute('class');
+				$element->setAttribute('class',$oldClass.' '.$class);
 			}
 			$this->output = $this->cleanOut($this->dom->saveHTML());
 		}

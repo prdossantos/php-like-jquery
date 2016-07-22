@@ -24,4 +24,10 @@ class PLJTest extends TestCase {
 		//Imprime o html
 		$this->assertNull(PLJ::in($this->html)->find('.asd123')->css('color','white')->render(true));
 	}
+
+	public function testAddClass()
+	{
+		$this->html = PLJ::in($this->html)->find('#ffff')->addClass('white')->render();
+		$this->assertEquals('asd123 white',PLJ::in($this->html)->find('#ffff')->attr('class'));
+	}
 }
