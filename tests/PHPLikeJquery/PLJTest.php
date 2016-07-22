@@ -15,4 +15,13 @@ class PLJTest extends TestCase {
 	{
 		$this->assertEquals('asd123', PLJ::in($this->html)->find('#ffff')->attr('class'));
 	}
+
+	public function testCss()
+	{
+		//Retorna o html
+		$this->assertNotNull(PLJ::in($this->html)->find('.asd123')->css(['color'=>'white'])->render());
+		
+		//Imprime o html
+		$this->assertNull(PLJ::in($this->html)->find('.asd123')->css('color','white')->render(true));
+	}
 }

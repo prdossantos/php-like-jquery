@@ -131,6 +131,46 @@ class Dom {
 		return $this;	
 	}
 
+	/**
+	 * Função para manipulação do atributo style
+	 * @param    string|array $arg1 caso string, será uma propriedade. Caso array o index será uma propriedade
+	 *                              e o valor será o valor da propriedade. Ex: String('color'). Array(['color'=>'white'])
+	 * @param    string $arg2  	apenas será utilizado quando o $arg1 for uma string e será o valor do atributo
+	 * @return   Instance       \Dom
+	 */
+	public function css($arg1,$arg2='')
+	{
+		if( is_array($this->items) ) {
+			foreach ( $this->items as $element) {
+				if( is_array($arg1) && $arg1 ) {
+					$css = ''; $end = ','; $i=0;
+					foreach ($arg1 as $key => $value) {
+						if(count($arg1) == ++$i) $end = '';
+						$css .= $key.':'.$value.$end;
+					}
+					$element->setAttribute('style',$css);
+				} else if( is_string($arg1) && $arg1 && $arg2 ) {
+					$element->setAttribute('style',$arg1.':'.$arg2);
+				}
+			}
+			$this->output = $this->cleanOut($this->dom->saveHTML());
+		}
+		return $this;
+	}
+
+	/**
+	 * Imprime ou retorna o html tratado.
+	 * @param    boolean $print caso TRUE será impresso na tela
+	 * @return   string         apenas se a $print for FALSE
+	 */
+	public function render($print=false)
+	{
+		if ( $print )
+			print $this->output;
+		else
+			return $this->output;
+	}
+
 	public function cleanOut($str)
 	{
 		$str = explode('<body>',$str);
