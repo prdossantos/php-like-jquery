@@ -8,7 +8,7 @@ class PLJTest extends TestCase {
 
 	public function setUp()
 	{
-		$this->html = '<div id="ffff" class="asd123">asdf</div>';
+		$this->html = '<div id="ffff" class="asd123">asdf <p id="123" class="test">another</p></div>';
 	}
 
 	public function testIn()
@@ -29,5 +29,10 @@ class PLJTest extends TestCase {
 	{
 		$this->html = PLJ::in($this->html)->find('#ffff')->addClass('white')->render();
 		$this->assertEquals('asd123 white',PLJ::in($this->html)->find('#ffff')->attr('class'));
+	}
+
+	public function testHasClass()
+	{
+		$this->assertEquals('another',PLJ::in($this->html)->find('#123')->hasClass('test')->html());	
 	}
 }

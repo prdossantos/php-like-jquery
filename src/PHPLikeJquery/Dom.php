@@ -98,9 +98,7 @@ class Dom {
 
 	public function attr($attr,$val='')
 	{
-		if(empty($this->items)) throw new \ErrorException("Error Processing Request", 1);
-
-		if(is_array($this->items)) {
+		if($this->items) {
 			foreach ($this->items as $element) {
 				if(!$val)
 					return $element->getAttribute($attr);
@@ -115,10 +113,7 @@ class Dom {
 
 	public function html($val='')
 	{
-		if(empty($this->items)) throw new \ErrorException("Error Processing Request", 1);
-
-		if(is_array($this->items)) {
-
+		if($this->items) {
 			foreach ($this->items as $element) {
 				if(!$val)
 					return trim($element->nodeValue);
@@ -126,6 +121,8 @@ class Dom {
 				$element->nodeValue = $val;
 			}
 			$this->output = $this->cleanOut($this->dom->saveHTML());
+		} else {
+			return null;
 		}
 
 		return $this;	
@@ -140,9 +137,7 @@ class Dom {
 	 */
 	public function css($arg1,$arg2='')
 	{
-		if(empty($this->items)) throw new \ErrorException("Error Processing Request", 1);
-		
-		if( is_array($this->items) ) {
+		if( $this->items ) {
 			foreach ( $this->items as $element) {
 				if( is_array($arg1) && $arg1 ) {
 					$css = ''; $end = ','; $i=0;
@@ -167,15 +162,35 @@ class Dom {
 	 */
 	public function addClass($class)
 	{
-		if(empty($this->items)) throw new \ErrorException("Error Processing Request", 1);
 		if(empty($class)) throw new \ErrorException("Argument 1 is required", 1);
 		
-		if( is_array($this->items) ) {
+		if( $this->items ) {
 			foreach ( $this->items as $element) {
 				$oldClass = $element->getAttribute('class');
 				$element->setAttribute('class',$oldClass.' '.$class);
 			}
 			$this->output = $this->cleanOut($this->dom->saveHTML());
+		}
+		return $this;
+	}
+
+	/**
+	 * Adiciona uma nova classe ao elemento
+	 * @param string $class classe a ser adicionada
+	 * @return instance \Dom
+	 */
+	public function hasClass($class)
+	{
+		if(empty($class)) throw new \ErrorException("Argument 1 is required", 1);
+		
+		if( $this->items ) {
+			$items = $this->items;
+			$this->items = [];
+			foreach ( $items as $element) {
+				$oldClass = $element->getAttribute('class');
+				if(strpos($oldClass, $class) !== false)
+					$this->items[] = $element;
+			}
 		}
 		return $this;
 	}
