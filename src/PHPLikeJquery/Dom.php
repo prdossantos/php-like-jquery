@@ -166,8 +166,27 @@ class Dom {
 		
 		if( $this->items ) {
 			foreach ( $this->items as $element) {
-				$oldClass = $element->getAttribute('class');
+				$oldClass = str_replace($class,'',$element->getAttribute('class'));
 				$element->setAttribute('class',$oldClass.' '.$class);
+			}
+			$this->output = $this->cleanOut($this->dom->saveHTML());
+		}
+		return $this;
+	}
+
+	/**
+	 * Remove uma classe do elemento
+	 * @param string $class classe a ser removida
+	 * @return instance \Dom
+	 */
+	public function removeClass($class)
+	{
+		if(empty($class)) throw new \ErrorException("Argument 1 is required", 1);
+		
+		if( $this->items ) {
+			foreach ( $this->items as $element) {
+				$oldClass = trim(str_replace($class,'',$element->getAttribute('class')));
+				$element->setAttribute('class',$oldClass);
 			}
 			$this->output = $this->cleanOut($this->dom->saveHTML());
 		}

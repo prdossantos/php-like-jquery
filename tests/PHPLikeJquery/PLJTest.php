@@ -31,6 +31,12 @@ class PLJTest extends TestCase {
 		$this->assertEquals('asd123 white',PLJ::in($this->html)->find('#ffff')->attr('class'));
 	}
 
+	public function testRemoveClass()
+	{
+		$this->html = PLJ::in($this->html)->find('#ffff')->addClass('white black')->render();
+		$this->assertEquals('asd123 white',PLJ::in($this->html)->find('#ffff')->removeClass('black')->attr('class'));
+	}
+
 	public function testHasClass()
 	{
 		$this->assertEquals('another',PLJ::in($this->html)->find('#123')->hasClass('test')->html());	
