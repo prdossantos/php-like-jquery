@@ -256,6 +256,24 @@ class Dom {
 	}
 
 	/**
+	 * Efetua uma busca por todos os elementos retornando-os
+	 * @param  string $el         tag do elemento 
+	 * @param  function $callback função de retorno
+	 * @return instance           \Dom
+	 */
+	public function each($el,$callback=null)
+	{
+		if(!$el) throw new \ErrorException("Argument 1 is required", 1);
+		
+		if(is_callable($callback)) {
+			$this->find($el);
+			$callback($this->items);
+		} else {
+			return $this->find($el);
+		}
+	}
+
+	/**
 	 * Imprime ou retorna o html tratado.
 	 * @param    boolean $print caso TRUE será impresso na tela
 	 * @return   string         apenas se a $print for FALSE
