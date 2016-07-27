@@ -3,7 +3,7 @@
 Manipule o HTML de forma simples, como o JQuery
 
 ## Instalação
-> Testes
+####Testes
 ```sh
   composer install
 ```
@@ -12,7 +12,7 @@ Instanciando a classe
 ```php
   use PHPLJ\PLJ;
 ```
-Todas as chamadas devem conter um html de entrada. Ex.:
+####Todas as chamadas devem conter um html de entrada. Ex.:
 ```php
   $html = ' <div id="content">
               <p id="test" class="my-class">
@@ -20,14 +20,13 @@ Todas as chamadas devem conter um html de entrada. Ex.:
               </p>
             </div>';
 ```
-attr()
+####attr()
 ```php
   //Utilizamos o html contido na variável $html acima.
   print PLJ::in($html)->find('#test')->attr('class');
   #output
   //Classe retornada
   my-class
-
   //Podemos setar uma classe passando o valor dela no segundo parâmetro
   print PLJ::in($html)->find('#test')->attr('class','black');
   #output
@@ -38,7 +37,7 @@ attr()
     </p>
   </div>
 ```
-css()
+####css()
 ```php
   print PLJ::in($html)->find('#test')->css(['color'=>'white'])->render();
   #output
@@ -49,7 +48,7 @@ css()
     </p>
   </div>
 ```
-addClass()
+####addClass()
 ```php
   print PLJ::in($html)->find('#test')->addClass('white')->render();
   #output
@@ -60,7 +59,7 @@ addClass()
     </p>
   </div>
 ```
-removeClass()
+####removeClass()
 ```php
   print PLJ::in($html)->find('#test')->removeClass('my-class')->render();
   #output
@@ -71,7 +70,7 @@ removeClass()
     </p>
   </div>
 ```
-hasClass()
+####hasClass()
 ```php
   $items = PLJ::in($html)->hasClass('white');
   #output
@@ -80,14 +79,14 @@ hasClass()
   #output
   Lorem Ipsium
 ```
-html()
+####html()
 ```php
   print PLJ::in($html)->find('#test')->hasClass('white')->html();
   #output
   // Retorna o html contido na tag com a classe "white"  
   Lorem Ipsium
 ```
-append()
+####append()
 ```php
   print PLJ::in($html)->find('#test')->append('<em>asd</em>')->save();
   #output
@@ -99,7 +98,7 @@ append()
     </p>
   </div>
 ```
-prepend()
+####prepend()
 ```php
   print PLJ::in($html)->find('#content')->prepend('<em>asd</em>')->save();
   #output
